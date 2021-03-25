@@ -1,0 +1,23 @@
+{:paths   ["src/clj"]
+
+ :deps    {org.clojure/clojure      {:mvn/version "1.10.1"}
+           metosin/spec-tools {:mvn/version "0.10.5"}
+           org.apache.poi/poi       {:mvn/version "4.1.2"}
+           org.apache.poi/poi-ooxml {:mvn/version "4.1.2"}}
+
+ :aliases {:lib     {}
+           :dev     {:extra-paths ["dev"
+                                   "test/clj"]}
+           :uberjar {:replace-deps {seancorfield/depstar {:mvn/version "1.1.136"}}
+                     :exec-fn      hf.depstar/uberjar
+                     :exec-args    {:jar      "clj-xlsx.jar"
+                                    :aot      true
+                                    :sync-pom true}}
+           :test    {:extra-deps  {org.clojure/test.check      {:mvn/version "1.0.0"}
+                                   org.clojure/tools.namespace {:mvn/version "1.1.0"}
+                                   com.cognitect/test-runner   {:git/url "https://github.com/cognitect-labs/test-runner.git"
+                                                                :sha     "209b64504cb3bd3b99ecfec7937b358a879f55c1"}}
+                     :extra-paths ["test/clj"]
+                     :main-opts   ["-m" "cognitect.test-runner"
+                                   "-d" "test/clj" "-n" "clj-xlsx.test.schema"
+                                   "-n" "clj-xlsx.test.core"]}}}
