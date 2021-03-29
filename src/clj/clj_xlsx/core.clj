@@ -324,11 +324,12 @@
               (->> col-i
                    (get row-data)
                    (fill-cell wb cell)))))
-        (->> row-data
-             (apply max-key get-cell-height)
-             get-cell-height
-             (+ 6)
-             (.setHeightInPoints row))))
+        (when (not-empty row-data)
+          (->> row-data
+               (apply max-key get-cell-height)
+               get-cell-height
+               (+ 6)
+               (.setHeightInPoints row)))))
     (->> sheet-data
          :col-styles
          (map-indexed (fn [indx style]
